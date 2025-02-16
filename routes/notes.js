@@ -85,4 +85,28 @@ router.delete("/:id", authenticate, (req, res) => {
   );
 });
 
+//Pin/Unpin a note
+router.patch("/:id/pin", authenticate, async (req, res) => {
+  const noteId = req.params.id;
+  const userId = req.user.id;
+  const { pinned } = req.body;
+
+  try {
+    const note = await db.get(
+      "SELECT * FROM notes WHERE id = ? AND user_id = ?",
+      [noteId, userId]
+    );
+
+    await db.run("UPDATE notes SET pinned = ? WHERE id = ?", [pinned, noteId]);
+
+    res.json({
+      message: `Note ${pinned ? "pinned" : "unpinned"} successfully`,
+      newPinnedStatus: pinned,
+    });
+  } catch (error) {
+    console.error("Error pinning/unpinning note:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 module.exports = router;
