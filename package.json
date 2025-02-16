@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "start": "nodemon server.js",
+    "prod": "nodemon server.js",
+    "build": "npm run build"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "init": "^0.1.2",
+    "jsonwebtoken": "^9.0.2",
+    "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  }
+}
